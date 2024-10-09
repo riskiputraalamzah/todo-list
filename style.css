@@ -77,3 +77,23 @@ button:hover {
 .remove-btn:hover {
   background-color: #c82333;
 }
+
+button.complete-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px; /* Increase padding for square shape */
+  cursor: pointer;
+  border-radius: 0; /* Set border-radius to 0 for square shape */
+  margin-right: 5px;
+}
+
+button.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px; /* Increase padding for square shape */
+  cursor: pointer;
+  border-radius: 100;
+  margin-left: 40px; /* Set border-radius to 0 for square shape */
+}
