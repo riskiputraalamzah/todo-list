@@ -1,79 +1,114 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f4f4f9;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+  padding: 0;
 }
 
 .container {
+  width: 90%;
+  max-width: 400px;
   background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  border-radius: 8px;
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  margin-bottom: 20px;
 }
 
 #todo-form {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 #new-task {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
+  font-size: 16px;
+  margin-right: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 button {
-  padding: 10px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
   cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background-image: linear-gradient(to bottom, #3766bd, #2f4f7f);
+  color: #fff;
+  width: 120px;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #f11e16;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #todo-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.todo-item {
-  display: flex;
-  justify-content: space-between;
+#todo-list li {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
-.todo-item.completed {
+#todo-list li:last-child {
+  border-bottom: none;
+}
+
+#todo-list li.completed {
   text-decoration: line-through;
-  color: #888;
 }
 
-.remove-btn {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 5px;
+#todo-list li button {
+  margin-left: 10px;
 }
 
-.remove-btn:hover {
-  background-color: #c82333;
+.filter-container {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-container button {
+  margin-right: 10px;
+}
+
+.filter-container button:not(:last-child) {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+  #todo-form {
+    flex-direction: column;
+  }
+  #new-task {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+  .filter-container {
+    flex-direction: column;
+  }
+  .filter-container button {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
 }
