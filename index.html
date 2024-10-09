@@ -16,8 +16,29 @@
           placeholder="Enter a new task"
           required
         />
+        <select id="task-category">
+          <option value="work">Bekerja</option>
+          <option value="shopping">Belanja</option>
+          <option value="personal">Pribadi</option>
+          <option value="others">Lainnya</option>
+        </select>
         <button type="submit">Add Task</button>
       </form>
+
+      <select id="filter-tasks">
+        <option value="all">All</option>
+        <option value="completed">Completed</option>
+        <option value="incomplete">Incomplete</option>
+      </select>
+
+      <select id="filter-category">
+        <option value="all">All Categories</option>
+        <option value="work">Bekerja</option>
+        <option value="shopping">Belanja</option>
+        <option value="personal">Pribadi</option>
+        <option value="others">Lainnya</option>
+      </select>
+
       <ul id="todo-list"></ul>
     </div>
     <script src="script.js"></script>

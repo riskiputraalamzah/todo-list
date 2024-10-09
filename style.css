@@ -13,7 +13,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 350px; /* Ukuran default untuk desktop */
 }
 
 h1 {
@@ -23,16 +23,33 @@ h1 {
 
 #todo-form {
   display: flex;
+  flex-wrap: wrap; /* Memungkinkan elemen turun ke baris berikutnya */
   justify-content: space-between;
-  margin-bottom: 20px;
+  gap: 10px;
 }
 
 #new-task {
-  flex: 1;
+  flex: 2; /* Input lebih lebar */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-right: 10px;
+  box-sizing: border-box;
+}
+
+#task-category {
+  flex: 1; /* Lebar dropdown kategori lebih kecil */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#filter-category {
+  flex: 1; /* Lebar dropdown filter kategori */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 button {
@@ -42,6 +59,9 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  flex: 0.7; /* Ukuran proporsional untuk tombol */
+  min-width: 100px;
+  box-sizing: border-box;
 }
 
 button:hover {
@@ -60,7 +80,12 @@ button:hover {
   border-bottom: 1px solid #ccc;
 }
 
-.todo-item.completed {
+.todo-item input[type="checkbox"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.todo-item span.completed {
   text-decoration: line-through;
   color: #888;
 }
@@ -76,4 +101,60 @@ button:hover {
 
 .remove-btn:hover {
   background-color: #c82333;
+}
+
+/* Responsivitas untuk tampilan perangkat kecil (smartphone) */
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+  }
+
+  #todo-form {
+    flex-direction: column; /* Elemen form menjadi satu kolom */
+  }
+
+  button {
+    width: 100%; /* Tombol memenuhi lebar */
+  }
+
+  #new-task,
+  #task-category,
+  #filter-category {
+    width: 100%; /* Input dan select memenuhi lebar */
+  }
+}
+
+/* Responsivitas untuk tablet (600px - 1024px) */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .container {
+    width: 450px; /* Lebar yang sedikit lebih besar untuk tablet */
+  }
+
+  #todo-form {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  #new-task {
+    flex: 1.5; /* Memperbesar input agar lebih proporsional */
+  }
+
+  #task-category,
+  #filter-category {
+    flex: 0.5; /* Ukuran dropdown kategori lebih kecil dibanding input */
+  }
+
+  button {
+    flex: 0.5; /* Lebar tombol disesuaikan untuk tablet */
+  }
+}
+
+#task-category,
+#filter-category {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
