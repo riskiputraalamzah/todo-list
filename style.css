@@ -1,79 +1,50 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f8f9fa;
+  height: 100vh; /* Menjadikan tinggi halaman sama dengan tinggi viewport */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  justify-content: center; /* Pusatkan secara horizontal */
+  align-items: center; /* Pusatkan secara vertikal */
   margin: 0;
 }
 
 .container {
-  background-color: #fff;
+  width: 100%;
+  max-width: 600px; /* Membatasi lebar maksimal container */
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
+  font-family: 'Arial', sans-serif;
   text-align: center;
-  color: #333;
-}
-
-#todo-form {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-#new-task {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-button {
-  padding: 10px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #218838;
 }
 
 #todo-list {
-  list-style-type: none;
-  padding: 0;
+  margin-top: 20px;
 }
 
-.todo-item {
+.list-group-item {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  align-items: center;
 }
 
-.todo-item.completed {
+.completed {
   text-decoration: line-through;
-  color: #888;
+  color: gray;
 }
 
-.remove-btn {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 5px;
+.status-label {
+  margin-right: 10px;
+  font-weight: bold;
 }
 
-.remove-btn:hover {
-  background-color: #c82333;
+.completed .status-label {
+  color: green;
+}
+
+.incomplete .status-label {
+  color: red;
 }

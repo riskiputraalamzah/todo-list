@@ -4,21 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>To-Do List</h1>
-      <form id="todo-form">
-        <input
-          type="text"
-          id="new-task"
-          placeholder="Enter a new task"
-          required
-        />
-        <button type="submit">Add Task</button>
+    <div class="container mt-5">
+      <h1 class="text-center">To-Do List</h1>
+      <form id="todo-form" class="mb-4">
+        <div class="input-group">
+          <input
+            type="text"
+            id="new-task"
+            class="form-control"
+            placeholder="Enter a new task"
+            required
+          />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Add Task</button>
+          </div>
+        </div>
       </form>
-      <ul id="todo-list"></ul>
+      <div class="filter-buttons mb-4 text-center">
+        <button class="btn btn-primary" id="all-filter">All</button>
+        <button class="btn btn-success" id="completed-filter">Completed</button>
+        <button class="btn btn-danger" id="incomplete-filter">Incomplete</button>
+      </div>
+      <ul id="todo-list" class="list-group"></ul>
     </div>
     <script src="script.js"></script>
   </body>
