@@ -65,7 +65,7 @@ button:hover {
   color: #888;
 }
 
-.remove-btn {
+/* .remove-btn {
   background-color: #dc3545;
   color: white;
   border: none;
@@ -76,4 +76,22 @@ button:hover {
 
 .remove-btn:hover {
   background-color: #c82333;
+} */
+
+.delete-btn {
+  margin-left: 180px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
+
+.delete-btn:hover {
+  background-color: darkred;
+}
+
+li.done {
+  text-decoration: line-through;
+  color: grey;
+}
+
