@@ -1,79 +1,62 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  padding: 20px;
 }
 
 .container {
-  background-color: #fff;
+  max-width: 600px;
+  margin: auto;
+  background: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
 }
 
 h1 {
   text-align: center;
-  color: #333;
 }
 
-#todo-form {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-#new-task {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-button {
-  padding: 10px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #218838;
-}
-
-#todo-list {
+ul {
   list-style-type: none;
   padding: 0;
 }
 
-.todo-item {
+li {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
-.todo-item.completed {
-  text-decoration: line-through;
-  color: #888;
+.completed {
+  text-decoration: line-through; /* Strikes through completed tasks */
+  color: rgb(0, 0, 0); /* Changes color of completed tasks */
 }
 
-.remove-btn {
-  background-color: #dc3545;
-  color: white;
+/* Button styles */
+button {
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  padding: 5px 10px;
   cursor: pointer;
-  padding: 5px;
 }
 
-.remove-btn:hover {
-  background-color: #c82333;
+.add-task-button {
+  background-color: #000000; /* Blue */
+  color: white;
+}
+
+.done-button {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.delete-button {
+  background-color: #f81504; /* Red */
+}
+
+button:hover {
+  opacity: 0.8; /* Slightly fade the button on hover */
 }
