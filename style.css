@@ -1,13 +1,39 @@
 body {
   background-color: #f8f9fa;
+  height: 100vh; /* Menjadikan tinggi halaman sama dengan tinggi viewport */
+  display: flex;
+  justify-content: center; /* Pusatkan secara horizontal */
+  align-items: center; /* Pusatkan secara vertikal */
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px; /* Membatasi lebar maksimal container */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
   font-family: 'Arial', sans-serif;
+  text-align: center;
 }
 
 #todo-list {
   margin-top: 20px;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
 }
 
 .status-label {
@@ -21,15 +47,4 @@ h1 {
 
 .incomplete .status-label {
   color: red;
-}
-
-.list-group-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.completed {
-  text-decoration: line-through;
-  color: gray;
 }
