@@ -20,6 +20,65 @@
       </form>
       <ul id="todo-list"></ul>
     </div>
-    <script src="script.js"></script>
+    <script>
+      // Ambil elemen dari DOM
+const todoForm = document.getElementById('todo-form');
+const todoInput = document.getElementById('new-task');
+const todoList = document.getElementById('todo-list');
+
+// Load tasks from local storage
+document.addEventListener('DOMContentLoaded', loadTasks);
+
+// Fungsi untuk menambahkan tugas
+todoForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const taskText = todoInput.value;
+
+  if (taskText) {
+    addTask(taskText);
+    todoInput.value = ''; // Clear input
+  }
+});
+
+// Fungsi untuk menambahkan tugas ke daftar
+function addTask(taskText) {
+  const li = document.createElement('li');
+  li.textContent = taskText;
+
+  // Tambah tombol hapus
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Delete';
+  deleteButton.addEventListener('click', function() {
+    li.remove();
+    saveTasks();
+  });
+
+  li.appendChild(deleteButton);
+  todoList.appendChild(li);
+  saveTasks();
+}
+
+// Fungsi untuk menyimpan tugas ke local storage
+function saveTasks() {
+  const tasks = [];
+  const items = todoList.getElementsByTagName('li');
+  
+  for (let item of items) {
+    tasks.push(item.firstChild.textContent); // Ambil teks tugas
+  }
+  
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// Fungsi untuk memuat tugas dari local storage
+function loadTasks() {
+  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  
+  tasks.forEach(task => {
+    addTask(task);
+  });
+}
+
+    </script>
   </body>
 </html>
