@@ -14,6 +14,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 300px;
+  margin: 0 auto;
 }
 
 h1 {
@@ -42,6 +43,7 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 button:hover {
@@ -60,9 +62,9 @@ button:hover {
   border-bottom: 1px solid #ccc;
 }
 
-.todo-item.completed {
+.completed {
   text-decoration: line-through;
-  color: #888;
+  color: grey;
 }
 
 .remove-btn {
@@ -76,4 +78,42 @@ button:hover {
 
 .remove-btn:hover {
   background-color: #c82333;
+}
+
+li {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between; /* Text on the left, buttons on the right */
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+li span {
+  flex-grow: 1; /* Makes the task text take up remaining space */
+  display: block;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.filter-btn {
+  padding: 5px 10px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.filter-btn.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+button.done-btn, button.delete-btn {
+  align-self: center;
 }
