@@ -1,46 +1,49 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  padding: 0;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
 }
 
 .container {
+  max-width: 400px;
+  width: 100%; /* Ensures container doesn't exceed screen width */
+  margin: 50px auto;
   background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  border-radius: 8px; /* Add some border radius for a smoother look */
 }
 
 h1 {
   text-align: center;
-  color: #333;
-}
-
-#todo-form {
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
 }
 
-#new-task {
+form {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
   flex: 1;
   padding: 10px;
+  font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
+  border-radius: 4px;
 }
 
 button {
   padding: 10px;
+  font-size: 16px;
   background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -48,32 +51,36 @@ button:hover {
   background-color: #218838;
 }
 
-#todo-list {
+ul {
   list-style-type: none;
   padding: 0;
 }
 
-.todo-item {
+li {
+  padding: 10px;
+  font-size: 18px;
+  background-color: #f8f9fa;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  align-items: center;
+  border-radius: 4px;
 }
 
-.todo-item.completed {
+li span.completed {
   text-decoration: line-through;
-  color: #888;
+  color: gray;
 }
 
-.remove-btn {
+.delete-btn {
   background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
-.remove-btn:hover {
+.delete-btn:hover {
   background-color: #c82333;
 }
