@@ -1,25 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do List</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+    <!-- Tambahkan SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
     <div class="container">
-      <h1>To-Do List</h1>
-      <form id="todo-form">
-        <input
-          type="text"
-          id="new-task"
-          placeholder="Enter a new task"
-          required
-        />
-        <button type="submit">Add Task</button>
-      </form>
-      <ul id="todo-list"></ul>
+        <h1>To-Do List</h1>
+        <form id="todo-form">
+            <input type="text" id="new-task" placeholder="Enter a new task" required />
+            <button type="submit">Add Task</button>
+        </form>
+        <ul id="todo-list"></ul>
+        <!-- Filter untuk memudahkan melihat tugas selesai / belum selesai -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="active">Active</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
     </div>
     <script src="script.js"></script>
-  </body>
+    <script>
+        // script.js
+        document.addEventListener("DOMContentLoaded", () => {
+          const todoForm = document.getElementById("todo-form");
+          const newTaskInput = document.getElementById("new-task");
+          const todoList = document.getElementById("todo-list");
+  
+          // Event listener to handle the form submission
+          todoForm.addEventListener("submit", (e) => {
+            e.preventDefault(); // Prevent page refresh
+  
+            // Get the new task input value
+            const taskText = newTaskInput.value.trim();
+  
+            if (taskText !== "") {
+              // Create a new list item (li)
+              const listItem = document.createElement("li");
+              listItem.textContent = taskText;
+  
+              // Add delete button to the task
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.classList.add("delete-btn");
+  
+              // Append the delete button to the list item
+              listItem.appendChild(deleteButton);
+  
+              // Append the list item to the todo list
+              todoList.appendChild(listItem);
+  
+              // Clear the input field
+              newTaskInput.value = "";
+            }
+          });
+  
+          // Event delegation to handle task deletion
+          todoList.addEventListener("click", (e) => {
+            if (e.target.classList.contains("delete-btn")) {
+              const listItem = e.target.parentElement;
+              todoList.removeChild(listItem);
+            }
+          });
+        });
+      </script>
+</body>
 </html>
