@@ -2,6 +2,7 @@
 const todoForm = document.getElementById("todo-form");
 const newTaskInput = document.getElementById("new-task");
 const todoList = document.getElementById("todo-list");
+const filterButtons = document.querySelectorAll('.filter-btn');
 
 // Fungsi untuk mengambil data dari localStorage
 const getTodosFromLocalStorage = () => {
@@ -59,12 +60,15 @@ const createTodoItem = (task, index) => {
     return li;
 };
 
-// Fungsi untuk memperbarui tampilan daftar tugas
-const renderTodos = () => {
+// Fungsi untuk memperbarui tampilan daftar tugas berdasarkan filter
+const renderTodos = (filter = 'all') => {
     todoList.innerHTML = ""; // Kosongkan daftar
     const todos = getTodosFromLocalStorage(); // Ambil data dari localStorage
+    
     todos.forEach((task, index) => {
-        todoList.appendChild(createTodoItem(task, index));
+        if (filter === 'all' || (filter === 'completed' && task.completed) || (filter === 'active' && !task.completed)) {
+            todoList.appendChild(createTodoItem(task, index));
+        }
     });
 };
 
@@ -89,7 +93,7 @@ const toggleCompleteTask = (index) => {
     const todos = getTodosFromLocalStorage();
     todos[index].completed = !todos[index].completed;
     saveTodosToLocalStorage(todos);
-    renderTodos();
+    renderTodos(); // Refresh daftar tugas setelah status berubah
 };
 
 // Fungsi untuk menghapus tugas
@@ -110,5 +114,17 @@ todoForm.addEventListener("submit", (e) => {
     }
 });
 
+// Event listeners untuk tombol filter
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        renderTodos(filter);
+
+        // Tambahkan class active pada tombol yang dipilih
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+    });
+});
+
 // Render tugas saat halaman dimuat
-window.addEventListener("load", renderTodos);
+window.addEventListener("load", () => renderTodos());

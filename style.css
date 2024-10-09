@@ -118,3 +118,6 @@ button:hover {
 .filter-btn:hover {
   background-color: #5a6268;
 }
+.filter-btn.active {
+  background-color: #007bff;
+}
