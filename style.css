@@ -6,46 +6,102 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
+  overflow: hidden; /* Mencegah scrollbar */
 }
 
 .container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
+  position: relative; /* Memungkinkan kontainer di atas latar belakang */
+  background-color: rgba(255, 255, 255, 0.9); /* Warna putih dengan transparansi */
+  padding: 20px; /* Mengurangi padding untuk tampilan lebih baik */
+  border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 400px;
+  max-width: 90%; /* Menjaga agar kontainer tidak terlalu lebar di perangkat kecil */
+  z-index: 1; /* Menempatkan kontainer di atas gambar latar belakang */
+  border: 10px solid transparent; /* Border transparan untuk latar belakang api */
+  background-clip: padding-box; /* Menghindari gambar latar belakang border */
+  position: relative;
 }
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Offset border */
+  left: -10px; /* Offset border */
+  right: -10px; /* Offset border */
+  bottom: -10px; /* Offset border */
+  background-image: url('image.jpeg'); /* Ganti dengan path gambar kamu */
+  background-size: cover; /* Menutupi seluruh border */
+  border-radius: 30px; /* Menyesuaikan dengan border radius kontainer */
+  z-index: -1; /* Menempatkan gambar di belakang kontainer */
+}
+
+
+/* Sisa kode CSS tetap sama */
+
 
 h1 {
   text-align: center;
-  color: #333;
+  color: rgba(251,180,3,255);
+  font-size: 24px; /* Ukuran font judul yang lebih kecil */
+}
+
+.filter-tasks {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px; /* Mengurangi margin */
+}
+
+.filter-button {
+  padding: 6px 10px; /* Mengurangi padding tombol */
+  margin-right: 5px; /* Mengurangi margin antara tombol */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgba(251,180,3,250);
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+  background-color: #b30000;
+}
+
+.filter-button.active {
+  background-color: #b30000; /* Warna untuk tombol aktif */
 }
 
 #todo-form {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Mengurangi margin */
 }
 
 #new-task {
   flex: 1;
-  padding: 10px;
+  padding: 8px; /* Mengurangi padding */
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-right: 10px;
+  margin-right: 5px; /* Mengurangi margin */
 }
 
 button {
-  padding: 10px;
-  background-color: #28a745;
+  padding: 8px; /* Mengurangi padding */
+  background-color: rgba(251,180,3,255);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #882121;
+  transform: scale(1.1);
+}
+
+button:active {
+  transform: scale(0.95);
 }
 
 #todo-list {
@@ -56,17 +112,17 @@ button:hover {
 .todo-item {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 8px; /* Mengurangi padding item */
   border-bottom: 1px solid #ccc;
 }
 
 .todo-item.completed {
   text-decoration: line-through;
-  color: #888;
+  color: #ff0000;
 }
 
-.remove-btn {
-  background-color: #dc3545;
+.complete-btn, .remove-btn {
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 5px;
@@ -74,6 +130,75 @@ button:hover {
   padding: 5px;
 }
 
-.remove-btn:hover {
-  background-color: #c82333;
+.complete-btn:hover, .remove-btn:hover {
+  background-color: #218838;
 }
+
+.todo-item span {
+  font-size:18px; /* Mengurangi ukuran font untuk waktu */
+  color: #888;
+}
+
+.remove-btn, .complete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.remove-btn i, .complete-btn i {
+  font-size: 18px;
+  color: #888;
+}
+
+.remove-btn:hover i {
+  color: #dc3545;
+}
+
+.complete-btn:hover i {
+  color: #28a745;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+
+  #background-video {
+      min-width: 100%; /* Memastikan video memenuhi lebar layar */
+      min-height: 100%; /* Memastikan video memenuhi tinggi layar */
+    }
+
+  .container {
+    width: 95%; /* Membuat kontainer lebih lebar di perangkat kecil */
+    padding: 10px; /* Mengurangi padding untuk tampilan lebih baik */
+  }
+
+  h1 {
+    font-size: 20px; /* Ukuran font judul yang lebih kecil */
+  }
+
+  #new-task {
+    font-size: 14px; /* Ukuran font untuk input */
+  }
+
+  button, .filter-button {
+    font-size: 14px; /* Ukuran font untuk tombol */
+  }
+
+  .todo-item {
+    font-size: 12px; /* Ukuran font untuk item To-Do */
+    padding: 5px; /* Mengurangi padding untuk item To-Do */
+  }
+}
+
+#background-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1; /* Memastikan video di belakang kontainer */
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* Menyesuaikan video agar memenuhi layar */
+}
+
