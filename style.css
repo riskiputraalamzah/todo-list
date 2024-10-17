@@ -1,0 +1,77 @@
+body {
+  background-color: #f8f9fa;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px); /* Efek blur */
+  -webkit-backdrop-filter: blur(10px); /* Untuk browser yang menggunakan -webkit */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode .container {
+  background-color: rgba(73, 80, 87, 0.5); /* Semi-transparent background for dark mode */
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+#todo-list {
+  margin-top: 20px;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.status-label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.completed .status-label {
+  color: green;
+}
+
+.incomplete .status-label {
+  color: red;
+}
+
+/* Dark Mode List Styles */
+body.dark-mode .list-group-item {
+  background-color: #6c757d;
+  border-color: #adb5bd;
+}
+
+body.dark-mode .completed {
+  color: #adb5bd;
+}
+
+body.dark-mode .incomplete .status-label {
+  color: #ffc107;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">To-Do List</h1>
+      <!-- Dark Mode/Light Mode Toggle Button -->
+      <div class="text-right">
+        <button id="theme-toggle" class="btn btn-secondary mb-3">
+          <i id="theme-icon" class="fas fa-moon"></i>
+        </button>
+      </div>
+      <form id="todo-form" class="mb-4">
+        <div class="input-group">
+          <input
+            type="text"
+            id="new-task"
+            class="form-control"
+            placeholder="Enter a new task"
+            required
+          />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Add Task</button>
+          </div>
+        </div>
+      </form>
+      <div class="filter-buttons mb-4 text-center">
+        <button class="btn btn-primary" id="all-filter">All</button>
+        <button class="btn btn-success" id="completed-filter">Completed</button>
+        <button class="btn btn-danger" id="incomplete-filter">Incomplete</button>
+      </div>
+      <ul id="todo-list" class="list-group"></ul>
+    </div>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
