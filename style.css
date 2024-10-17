@@ -79,7 +79,8 @@ button:hover {
 } */
 
 .delete-btn {
-  margin-left: 180px;
+  margin-left: 130px;
+  margin: 3px 0;
   background-color: red;
   color: white;
   border: none;
@@ -95,3 +96,18 @@ li.done {
   color: grey;
 }
 
+.done {
+  text-decoration: line-through;
+  color: grey;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+li span {
+  flex-grow: 1;
+}
