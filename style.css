@@ -1,26 +1,25 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
-  overflow: hidden; /* Mencegah scrollbar */
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  display: flex; /* Menggunakan flexbox */
+  justify-content: center; /* Menyelaraskan secara horizontal */
+  align-items: center; /* Menyelaraskan secara vertikal */
+  height: 100vh; /* Mengatur tinggi body ke 100% viewport */
+  overflow: hidden; /* Mencegah scroll di body */
 }
 
 .container {
-  position: relative; /* Memungkinkan kontainer di atas latar belakang */
-  background-color: rgba(255, 255, 255, 0.9); /* Warna putih dengan transparansi */
-  padding: 20px; /* Mengurangi padding untuk tampilan lebih baik */
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  max-width: 90%; /* Menjaga agar kontainer tidak terlalu lebar di perangkat kecil */
-  z-index: 1; /* Menempatkan kontainer di atas gambar latar belakang */
-  border: 10px solid transparent; /* Border transparan untuk latar belakang api */
-  background-clip: padding-box; /* Menghindari gambar latar belakang border */
   position: relative;
+  z-index: 1; /* Menjaga elemen di atas video */
+  padding: 60px;
+  max-height: 80vh; /* Membatasi tinggi kontainer */
+  background: rgba(0, 0, 0, 0.7); /* Tambahkan latar belakang untuk kontras */
+  border-radius: 10px; /* Tambahkan sudut melengkung */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Tambahkan bayangan */
+  margin: 20px; /* Margin untuk kontainer */
 }
 
 .container::before {
@@ -36,10 +35,6 @@ body {
   z-index: -1; /* Menempatkan gambar di belakang kontainer */
 }
 
-
-/* Sisa kode CSS tetap sama */
-
-
 h1 {
   text-align: center;
   color: rgba(251,180,3,255);
@@ -52,15 +47,18 @@ h1 {
   margin-bottom: 10px; /* Mengurangi margin */
 }
 
-.filter-button {
+.filter-button, .filter-button-2 {
   padding: 6px 10px; /* Mengurangi padding tombol */
   margin-right: 5px; /* Mengurangi margin antara tombol */
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-button {
   background-color: rgba(251,180,3,250);
   color: white;
-  transition: background-color 0.3s ease;
 }
 
 .filter-button:hover {
@@ -69,6 +67,24 @@ h1 {
 
 .filter-button.active {
   background-color: #b30000; /* Warna untuk tombol aktif */
+}
+
+.filter-button-2 {
+  background-color: green;
+  color: white;
+}
+
+.filter-button-2:hover {
+  background-color: #b30000;
+}
+
+.filter-button-2.active {
+  background-color: #b30000; /* Warna untuk tombol aktif */
+}
+
+.filter-button:focus, .filter-button-2:focus {
+  outline: none; /* Menghilangkan outline saat tombol dalam fokus */
+  box-shadow: 0 0 5px rgba(251, 180, 3, 255); /* Menambahkan bayangan saat fokus */
 }
 
 #todo-form {
@@ -107,13 +123,28 @@ button:active {
 #todo-list {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  max-height: 300px; /* Batasi tinggi daftar tugas */
+  overflow-y: auto; /* Menambahkan scroll jika konten lebih dari tinggi */
 }
 
 .todo-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px; /* Mengurangi padding item */
-  border-bottom: 1px solid #ccc;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  opacity: 1;
+  transition: opacity 0.3s ease; /* Transisi untuk efek hover */
+}
+
+.todo-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Efek hover untuk item To-Do */
+}
+
+.todo-item.hidden {
+  opacity: 0; /* Menghilangkan item secara halus */
+  transition: opacity 0.3s ease; /* Transisi untuk menghilangkan item */
 }
 
 .todo-item.completed {
@@ -135,8 +166,10 @@ button:active {
 }
 
 .todo-item span {
-  font-size:18px; /* Mengurangi ukuran font untuk waktu */
-  color: #888;
+  font-size: 18px; /* Mengurangi ukuran font untuk waktu */
+  color: #ffffff; /* Bright red for "hellish" appearance */
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.6); /* Fiery glow effect */
+  font-weight: bold;
 }
 
 .remove-btn, .complete-btn {
@@ -147,7 +180,7 @@ button:active {
 
 .remove-btn i, .complete-btn i {
   font-size: 18px;
-  color: #888;
+  color: #888888;
 }
 
 .remove-btn:hover i {
@@ -202,3 +235,109 @@ button:active {
   object-fit: cover; /* Menyesuaikan video agar memenuhi layar */
 }
 
+.floating-message {
+  position: absolute;
+  white-space: nowrap; /* Mencegah teks membungkus ke baris baru */
+  font-size: 24px;
+  color: white;
+  background-color: #b30000;
+  padding: 10px;
+  border-radius: 5px;
+  animation: float 10s linear infinite; /* Mengatur durasi dan jenis animasi */
+  z-index: 1;
+}
+
+/* Animasi untuk teks melayang */
+@keyframes float {
+  0% {
+      left: 100%; /* Mulai di luar kanan layar */
+      top: 10%; /* Posisi vertikal tengah */
+      transform: translateY(-50%); /* Posisikan di tengah secara vertikal */
+  }
+  100% {
+      left: -100%; /* Bergerak ke luar kiri layar */
+      top: 10%; /* Pastikan posisi tetap di tengah vertikal */
+      transform: translateY(-50%); /* Posisikan di tengah secara vertikal */
+  }
+}
+
+.logout-btn {
+  background-color: rgb(255, 0, 0);
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #c00000; /* Warna saat hover */
+}
+
+.login-container {
+  opacity: 0; /* Mulai dengan opacity 0 */
+  transform: translateY(-20px); /* Mulai sedikit di atas */
+  animation: fadeIn 0.5s forwards; /* Memanggil animasi fadeIn */
+  position: relative;
+  z-index: 1; /* Menjaga elemen di atas video */
+  padding: 60px;
+  max-height: 80vh; /* Membatasi tinggi kontainer */
+  background: rgba(0, 0, 0, 0.7); /* Tambahkan latar belakang untuk kontras */
+  border-radius: 10px; /* Tambahkan sudut melengkung */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Tambahkan bayangan */
+  margin: 20px; /* Margin untuk kontainer */
+}
+
+.login-container::before{
+  content: '';
+  position: absolute;
+  top: -10px; /* Offset border */
+  left: -10px; /* Offset border */
+  right: -10px; /* Offset border */
+  bottom: -10px; /* Offset border */
+  background-image: url('image.jpeg'); /* Ganti dengan path gambar kamu */
+  background-size: cover; /* Menutupi seluruh border */
+  border-radius: 30px; /* Menyesuaikan dengan border radius kontainer */
+  z-index: -1; /* Menempatkan gambar di belakang kontainer */
+}
+
+/* Animasi Fade In */
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Mulai dengan transparan */
+    transform: translateY(-20px); /* Mulai sedikit di atas */
+  }
+  100% {
+    opacity: 1; /* Akhirnya menjadi terlihat */
+    transform: translateY(0); /* Kembali ke posisi normal */
+  }
+}
+
+/* Animasi untuk tombol login */
+button {
+  animation: bounce 0.5s; /* Menambahkan animasi bounce pada tombol */
+}
+
+/* Animasi Bounce */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards; /* Memanggil animasi fadeOut */
+}
+
+/* Animasi Fade Out */
+@keyframes fadeOut {
+  0% {
+    opacity: 1; /* Mulai terlihat */
+  }
+  100% {
+    opacity: 0; /* Akhirnya menjadi transparan */
+  }
+}
