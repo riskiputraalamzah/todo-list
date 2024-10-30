@@ -1,123 +1,343 @@
-/* General styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  display: flex; /* Menggunakan flexbox */
+  justify-content: center; /* Menyelaraskan secara horizontal */
+  align-items: center; /* Menyelaraskan secara vertikal */
+  height: 100vh; /* Mengatur tinggi body ke 100% viewport */
+  overflow: hidden; /* Mencegah scroll di body */
 }
 
-/* Container untuk seluruh elemen */
 .container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  position: relative;
+  z-index: 1; /* Menjaga elemen di atas video */
+  padding: 60px;
+  max-height: 80vh; /* Membatasi tinggi kontainer */
+  background: rgba(0, 0, 0, 0.7); /* Tambahkan latar belakang untuk kontras */
+  border-radius: 10px; /* Tambahkan sudut melengkung */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Tambahkan bayangan */
+  margin: 20px; /* Margin untuk kontainer */
 }
 
-/* Heading untuk judul aplikasi */
+.container::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Offset border */
+  left: -10px; /* Offset border */
+  right: -10px; /* Offset border */
+  bottom: -10px; /* Offset border */
+  background-image: url('image.jpeg'); /* Ganti dengan path gambar kamu */
+  background-size: cover; /* Menutupi seluruh border */
+  border-radius: 30px; /* Menyesuaikan dengan border radius kontainer */
+  z-index: -1; /* Menempatkan gambar di belakang kontainer */
+}
+
 h1 {
   text-align: center;
-  color: #333;
+  color: rgba(251,180,3,255);
+  font-size: 24px; /* Ukuran font judul yang lebih kecil */
 }
 
-/* Formulir untuk menambahkan tugas */
+.filter-tasks {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px; /* Mengurangi margin */
+}
+
+.filter-button, .filter-button-2 {
+  padding: 6px 10px; /* Mengurangi padding tombol */
+  margin-right: 5px; /* Mengurangi margin antara tombol */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-button {
+  background-color: rgba(251,180,3,250);
+  color: white;
+}
+
+.filter-button:hover {
+  background-color: #b30000;
+}
+
+.filter-button.active {
+  background-color: #b30000; /* Warna untuk tombol aktif */
+}
+
+.filter-button-2 {
+  background-color: green;
+  color: white;
+}
+
+.filter-button-2:hover {
+  background-color: #b30000;
+}
+
+.filter-button-2.active {
+  background-color: #b30000; /* Warna untuk tombol aktif */
+}
+
+.filter-button:focus, .filter-button-2:focus {
+  outline: none; /* Menghilangkan outline saat tombol dalam fokus */
+  box-shadow: 0 0 5px rgba(251, 180, 3, 255); /* Menambahkan bayangan saat fokus */
+}
+
 #todo-form {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Mengurangi margin */
 }
 
-/* Input tugas baru */
 #new-task {
   flex: 1;
-  padding: 10px;
+  padding: 8px; /* Mengurangi padding */
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-right: 10px;
-  font-size: 16px;
+  margin-right: 5px; /* Mengurangi margin */
 }
 
-/* Tombol untuk menambahkan tugas */
 button {
+  padding: 8px; /* Mengurangi padding */
+  background-color: rgba(251,180,3,255);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #882121;
+  transform: scale(1.1);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#todo-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px; /* Batasi tinggi daftar tugas */
+  overflow-y: auto; /* Menambahkan scroll jika konten lebih dari tinggi */
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
+  border-bottom: 1px solid #444;
+  opacity: 1;
+  transition: opacity 0.3s ease; /* Transisi untuk efek hover */
+}
+
+.todo-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Efek hover untuk item To-Do */
+}
+
+.todo-item.hidden {
+  opacity: 0; /* Menghilangkan item secara halus */
+  transition: opacity 0.3s ease; /* Transisi untuk menghilangkan item */
+}
+
+.todo-item.completed {
+  text-decoration: line-through;
+  color: #ff0000;
+}
+
+.complete-btn, .remove-btn {
   background-color: #28a745;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  padding: 5px;
 }
 
-button:hover {
+.complete-btn:hover, .remove-btn:hover {
   background-color: #218838;
 }
 
-/* Daftar tugas */
-#todo-list {
-  list-style-type: none;
-  padding: 0;
+.todo-item span {
+  font-size: 18px; /* Mengurangi ukuran font untuk waktu */
+  color: #ffffff; /* Bright red for "hellish" appearance */
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.6); /* Fiery glow effect */
+  font-weight: bold;
 }
 
-/* Setiap item tugas */
-.todo-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  font-size: 16px;
-}
-
-/* Tugas yang selesai */
-.todo-item.completed {
-  text-decoration: line-through;
-  color: #888;
-}
-
-/* Checkbox untuk menandai tugas selesai */
-.todo-item input[type="checkbox"] {
-  margin-right: 10px;
-}
-
-/* Tombol untuk menghapus tugas */
-.remove-btn {
-  background-color: #dc3545;
-  color: white;
+.remove-btn, .complete-btn {
+  background: none;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  padding: 5px 10px;
 }
 
-.remove-btn:hover {
-  background-color: #c82333;
+.remove-btn i, .complete-btn i {
+  font-size: 18px;
+  color: #888888;
 }
 
-/* Tombol filter */
-.filters {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
+.remove-btn:hover i {
+  color: #dc3545;
 }
 
-.filter-btn {
-  flex: 1;
-  padding: 10px;
-  margin: 0 5px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #6c757d;
+.complete-btn:hover i {
+  color: #28a745;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+
+  #background-video {
+      min-width: 100%; /* Memastikan video memenuhi lebar layar */
+      min-height: 100%; /* Memastikan video memenuhi tinggi layar */
+    }
+
+  .container {
+    width: 95%; /* Membuat kontainer lebih lebar di perangkat kecil */
+    padding: 10px; /* Mengurangi padding untuk tampilan lebih baik */
+  }
+
+  h1 {
+    font-size: 20px; /* Ukuran font judul yang lebih kecil */
+  }
+
+  #new-task {
+    font-size: 14px; /* Ukuran font untuk input */
+  }
+
+  button, .filter-button {
+    font-size: 14px; /* Ukuran font untuk tombol */
+  }
+
+  .todo-item {
+    font-size: 12px; /* Ukuran font untuk item To-Do */
+    padding: 5px; /* Mengurangi padding untuk item To-Do */
+  }
+}
+
+#background-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1; /* Memastikan video di belakang kontainer */
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* Menyesuaikan video agar memenuhi layar */
+}
+
+.floating-message {
+  position: absolute;
+  white-space: nowrap; /* Mencegah teks membungkus ke baris baru */
+  font-size: 24px;
   color: white;
+  background-color: #b30000;
+  padding: 10px;
+  border-radius: 5px;
+  animation: float 10s linear infinite; /* Mengatur durasi dan jenis animasi */
+  z-index: 1;
 }
 
-.filter-btn:hover {
-  background-color: #5a6268;
+/* Animasi untuk teks melayang */
+@keyframes float {
+  0% {
+      left: 100%; /* Mulai di luar kanan layar */
+      top: 10%; /* Posisi vertikal tengah */
+      transform: translateY(-50%); /* Posisikan di tengah secara vertikal */
+  }
+  100% {
+      left: -100%; /* Bergerak ke luar kiri layar */
+      top: 10%; /* Pastikan posisi tetap di tengah vertikal */
+      transform: translateY(-50%); /* Posisikan di tengah secara vertikal */
+  }
 }
-.filter-btn.active {
-  background-color: #007bff;
+
+.logout-btn {
+  background-color: rgb(255, 0, 0);
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #c00000; /* Warna saat hover */
+}
+
+.login-container {
+  opacity: 0; /* Mulai dengan opacity 0 */
+  transform: translateY(-20px); /* Mulai sedikit di atas */
+  animation: fadeIn 0.5s forwards; /* Memanggil animasi fadeIn */
+  position: relative;
+  z-index: 1; /* Menjaga elemen di atas video */
+  padding: 60px;
+  max-height: 80vh; /* Membatasi tinggi kontainer */
+  background: rgba(0, 0, 0, 0.7); /* Tambahkan latar belakang untuk kontras */
+  border-radius: 10px; /* Tambahkan sudut melengkung */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Tambahkan bayangan */
+  margin: 20px; /* Margin untuk kontainer */
+}
+
+.login-container::before{
+  content: '';
+  position: absolute;
+  top: -10px; /* Offset border */
+  left: -10px; /* Offset border */
+  right: -10px; /* Offset border */
+  bottom: -10px; /* Offset border */
+  background-image: url('image.jpeg'); /* Ganti dengan path gambar kamu */
+  background-size: cover; /* Menutupi seluruh border */
+  border-radius: 30px; /* Menyesuaikan dengan border radius kontainer */
+  z-index: -1; /* Menempatkan gambar di belakang kontainer */
+}
+
+/* Animasi Fade In */
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Mulai dengan transparan */
+    transform: translateY(-20px); /* Mulai sedikit di atas */
+  }
+  100% {
+    opacity: 1; /* Akhirnya menjadi terlihat */
+    transform: translateY(0); /* Kembali ke posisi normal */
+  }
+}
+
+/* Animasi untuk tombol login */
+button {
+  animation: bounce 0.5s; /* Menambahkan animasi bounce pada tombol */
+}
+
+/* Animasi Bounce */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards; /* Memanggil animasi fadeOut */
+}
+
+/* Animasi Fade Out */
+@keyframes fadeOut {
+  0% {
+    opacity: 1; /* Mulai terlihat */
+  }
+  100% {
+    opacity: 0; /* Akhirnya menjadi transparan */
+  }
 }
