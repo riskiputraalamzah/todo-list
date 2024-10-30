@@ -1,130 +1,107 @@
-// Seleksi elemen dari DOM
-const todoForm = document.getElementById("todo-form");
-const newTaskInput = document.getElementById("new-task");
-const todoList = document.getElementById("todo-list");
-const filterButtons = document.querySelectorAll('.filter-btn');
+// script.js
+export default class ToDoApp {
+  constructor() {
+    this.form = document.getElementById("todo-form");
+    this.todoInput = document.getElementById("new-task");
+    this.taskCategory = document.getElementById("task-category");
+    this.todoList = document.getElementById("todo-list");
+    this.filterSelect = document.getElementById("filter-tasks");
+    this.filterCategory = document.getElementById("filter-category");
 
-// Fungsi untuk mengambil data dari localStorage
-const getTodosFromLocalStorage = () => {
-    return JSON.parse(localStorage.getItem("todos")) || [];
-};
+    this.form.addEventListener("submit", (e) => this.addTask(e));
+    this.filterSelect.addEventListener("change", () => this.applyFilter());
+    this.filterCategory.addEventListener("change", () => this.applyFilter());
 
-// Fungsi untuk menyimpan data ke localStorage
-const saveTodosToLocalStorage = (todos) => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-};
+    this.loadTasks();
+  }
 
-// Fungsi untuk membuat elemen tugas
-const createTodoItem = (task, index) => {
-    const li = document.createElement("li");
-    li.classList.add("todo-item");
-    if (task.completed) {
-        li.classList.add("completed");
-    }
-
-    li.innerHTML = `
-        <div>
-            <input type="checkbox" ${task.completed ? "checked" : ""} />
-            <span>${task.text}</span>
-        </div>
-        <button class="remove-btn">Remove</button>
-    `;
-
-    // Event listener untuk checkbox (centang tugas)
-    li.querySelector('input[type="checkbox"]').addEventListener("change", () => {
-        toggleCompleteTask(index);
+  loadTasks() {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach((task) => {
+      this.addTaskToDOM(task.text, task.category, task.completed);
     });
+    this.applyFilter(); // Terapkan filter saat memuat
+  }
 
-    // Event listener untuk tombol "Remove" dengan SweetAlert konfirmasi
-    li.querySelector(".remove-btn").addEventListener("click", () => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                removeTask(index);
-                Swal.fire(
-                    'Deleted!',
-                    'Your task has been deleted.',
-                    'success'
-                );
-            }
-        });
-    });
-
-    return li;
-};
-
-// Fungsi untuk memperbarui tampilan daftar tugas berdasarkan filter
-const renderTodos = (filter = 'all') => {
-    todoList.innerHTML = ""; // Kosongkan daftar
-    const todos = getTodosFromLocalStorage(); // Ambil data dari localStorage
-    
-    todos.forEach((task, index) => {
-        if (filter === 'all' || (filter === 'completed' && task.completed) || (filter === 'active' && !task.completed)) {
-            todoList.appendChild(createTodoItem(task, index));
-        }
-    });
-};
-
-// Fungsi untuk menambahkan tugas baru dengan SweetAlert notifikasi
-const addTask = (taskText) => {
-    const todos = getTodosFromLocalStorage();
-    todos.push({ text: taskText, completed: false });
-    saveTodosToLocalStorage(todos);
-    renderTodos();
-
-    // SweetAlert notifikasi setelah tugas berhasil ditambahkan
-    Swal.fire({
-        title: 'Task Added!',
-        text: `Your task "${taskText}" has been successfully added to the list.`,
-        icon: 'success',
-        confirmButtonText: 'OK'
-    });
-};
-
-// Fungsi untuk menandai tugas sebagai selesai atau belum selesai
-const toggleCompleteTask = (index) => {
-    const todos = getTodosFromLocalStorage();
-    todos[index].completed = !todos[index].completed;
-    saveTodosToLocalStorage(todos);
-    renderTodos(); // Refresh daftar tugas setelah status berubah
-};
-
-// Fungsi untuk menghapus tugas
-const removeTask = (index) => {
-    const todos = getTodosFromLocalStorage();
-    todos.splice(index, 1);
-    saveTodosToLocalStorage(todos);
-    renderTodos();
-};
-
-// Event listener untuk form submit (menambahkan tugas)
-todoForm.addEventListener("submit", (e) => {
+  addTask(e) {
     e.preventDefault();
-    const taskText = newTaskInput.value.trim();
-    if (taskText) {
-        addTask(taskText);
-        newTaskInput.value = ""; // Kosongkan input setelah menambahkan
+    const taskText = this.todoInput.value.trim();
+    const category = this.taskCategory.value;
+    if (taskText === "") return;
+
+    this.addTaskToDOM(taskText, category);
+    this.todoInput.value = ""; // Kosongkan input setelah menambah tugas
+    this.updateLocalStorage(); // Perbarui localStorage
+  }
+
+  addTaskToDOM(taskText, category, completed = false) {
+    const todoItem = document.createElement("li");
+    todoItem.classList.add("todo-item");
+    todoItem.setAttribute("data-category", category);
+
+    const taskSpan = document.createElement("span");
+    taskSpan.textContent = taskText;
+    if (completed) {
+      taskSpan.classList.add("completed");
     }
-});
 
-// Event listeners untuk tombol filter
-filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const filter = button.getAttribute('data-filter');
-        renderTodos(filter);
+    const completeCheckbox = document.createElement("input");
+    completeCheckbox.type = "checkbox";
+    completeCheckbox.checked = completed;
+    completeCheckbox.onclick = () => {
+      taskSpan.classList.toggle("completed", completeCheckbox.checked);
+      this.updateLocalStorage();
+      this.applyFilter();
+    };
 
-        // Tambahkan class active pada tombol yang dipilih
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "✖";
+    removeButton.classList.add("remove-btn");
+    removeButton.onclick = () => {
+      this.todoList.removeChild(todoItem);
+      this.updateLocalStorage();
+    };
+
+    todoItem.appendChild(completeCheckbox);
+    todoItem.appendChild(taskSpan);
+    todoItem.appendChild(removeButton);
+    this.todoList.appendChild(todoItem);
+  }
+
+  updateLocalStorage() {
+    const tasks = [];
+    const todoItems = document.querySelectorAll(".todo-item");
+    todoItems.forEach((item) => {
+      const taskText = item.querySelector("span").textContent;
+      const completed = item.querySelector("input[type='checkbox']").checked;
+      const category = item.getAttribute("data-category");
+      tasks.push({ text: taskText, category: category, completed: completed });
     });
-});
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    this.applyFilter();
+  }
 
-// Render tugas saat halaman dimuat
-window.addEventListener("load", () => renderTodos());
+  applyFilter() {
+    const filterValue = this.filterSelect.value;
+    const filterCategoryValue = this.filterCategory.value;
+    const todoItems = document.querySelectorAll(".todo-item");
+
+    todoItems.forEach((item) => {
+      const taskSpan = item.querySelector("span");
+      const isCompleted = taskSpan.classList.contains("completed");
+      const taskCategory = item.getAttribute("data-category");
+
+      // Filter berdasarkan status
+      const statusMatch =
+        filterValue === "all" ||
+        (filterValue === "completed" && isCompleted) ||
+        (filterValue === "incomplete" && !isCompleted);
+
+      // Filter berdasarkan kategori
+      const categoryMatch =
+        filterCategoryValue === "all" || filterCategoryValue === taskCategory;
+
+      item.style.display = statusMatch && categoryMatch ? "flex" : "none";
+    });
+  }
+}
