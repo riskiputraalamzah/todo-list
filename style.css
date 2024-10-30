@@ -1,7 +1,7 @@
-/* Style Umum */
+/* General Style */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e9ecef;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,20 +10,23 @@ body {
 }
 
 .container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  max-width: 100%; /* Agar lebar container sesuai layar kecil */
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  max-width: 100%; /* Ensure container width fits small screens */
 }
 
+/* Heading Style */
 h1 {
   text-align: center;
   color: #333;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
 }
 
+/* Form Style */
 #todo-form {
   display: flex;
   justify-content: space-between;
@@ -32,27 +35,35 @@ h1 {
 
 #new-task {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 12px;
+  border: 2px solid #007bff;
+  border-radius: 8px;
   margin-right: 10px;
   font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+#new-task:focus {
+  border-color: #0056b3;
+  outline: none;
 }
 
 button {
-  padding: 4px;
+  padding: 10px;
   background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s;
 }
 
 button:hover {
   background-color: #218838;
 }
 
+/* To-Do List Style */
 #todo-list {
   list-style-type: none;
   padding: 0;
@@ -61,8 +72,16 @@ button:hover {
 .todo-item {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  transition: background-color 0.3s;
+}
+
+.todo-item:hover {
+  background-color: #f1f1f1;
 }
 
 .todo-item.completed {
@@ -70,19 +89,22 @@ button:hover {
   color: #888;
 }
 
+/* Remove Button Style */
 .remove-btn {
   background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  padding: 5px;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
 }
 
 .remove-btn:hover {
   background-color: #c82333;
 }
 
+/* Filter Buttons Style */
 #filter-buttons {
   display: flex;
   justify-content: space-around;
@@ -90,64 +112,35 @@ button:hover {
 }
 
 #filter-buttons button {
-  padding: 5px;
+  padding: 8px;
   background-color: #007bff;
   margin: 5px;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 #filter-buttons button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
-/* Style untuk daftar to-do */
-ul {
-  list-style-type: none; /* Hilangkan bullet point */
-  padding: 0;
-}
-
-/* Style untuk setiap tugas */
-li {
-  display: flex;
-  justify-content: space-between; /* Memastikan tombol hapus ada di kanan */
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 5px;
-  border-radius: 4px;
-}
-
-.completed {
-  text-decoration: line-through;
-  color: gray;
-}
-
-/* Style untuk tombol hapus */
-button.delete-btn {
-  background-color: #ff4d4d;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-}
-
-/* Media Query untuk tampilan mobile */
-/* @media (max-width: 600px) {
+/* Media Query for Mobile Responsiveness */
+@media (max-width: 600px) {
   .container {
     width: 90%;
     padding: 20px;
   }
 
   h1 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 
   #new-task {
-    padding: 8px;
+    padding: 10px;
     font-size: 0.9rem;
   }
 
@@ -157,11 +150,11 @@ button.delete-btn {
   }
 
   #filter-buttons button {
-    padding: 10px;
-    font-size: 0.5rem;
+    padding: 8px;
+    font-size: 0.9rem;
   }
 
   .todo-item {
-    padding: 8px;
+    padding: 10px;
   }
-} */
+}
