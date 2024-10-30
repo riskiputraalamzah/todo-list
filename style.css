@@ -1,11 +1,25 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background: linear-gradient(270deg, #001f3f, #000000, #333333, #0056b3);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .container {
@@ -19,33 +33,24 @@ body {
 h1 {
   text-align: center;
   color: #333;
+  margin-bottom: 20px; /* Tambahkan margin bawah untuk pemisahan */
 }
 
 #todo-form {
   display: flex;
-  flex-wrap: wrap; /* Memungkinkan elemen turun ke baris berikutnya */
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column; /* Ubah menjadi kolom untuk tampilan lebih rapi */
+  gap: 10px; /* Tambahkan gap untuk jarak antar elemen */
 }
 
 #new-task {
-  flex: 2; /* Input lebih lebar */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
 }
 
-#task-category {
-  flex: 1; /* Lebar dropdown kategori lebih kecil */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
+#task-category,
 #filter-category {
-  flex: 1; /* Lebar dropdown filter kategori */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -53,29 +58,30 @@ h1 {
 }
 
 button {
-  padding: 10px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  flex: 0.7; /* Ukuran proporsional untuk tombol */
-  min-width: 100px;
-  box-sizing: border-box;
+  padding: 10px; /* Padding yang lebih seimbang */
+  background-color: #001f3f; /* Warna tombol */
+  color: white; /* Warna teks tombol */
+  border: none; /* Tanpa border */
+  border-radius: 5px; /* Sudut tombol dibulatkan */
+  cursor: pointer; /* Menunjukkan bahwa tombol dapat diklik */
+  width: 100%; /* Tombol memenuhi lebar */
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #0056b3; /* Warna saat hover */
 }
 
 #todo-list {
   list-style-type: none;
   padding: 0;
+  margin-top: 20px; /* Jarak antara daftar tugas dan form */
 }
 
 .todo-item {
   display: flex;
   justify-content: space-between;
+  align-items: center; /* Pastikan semua elemen dalam baris sejajar */
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
@@ -96,7 +102,12 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  padding: 5px;
+  width: 30px; /* Ukuran lebar tombol */
+  height: 30px; /* Ukuran tinggi tombol */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* Menghapus padding untuk menjaga ukuran persegi */
 }
 
 .remove-btn:hover {
@@ -131,30 +142,6 @@ button:hover {
   }
 
   #todo-form {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    flex-direction: column; /* Pertahankan elemen form dalam kolom */
   }
-
-  #new-task {
-    flex: 1.5; /* Memperbesar input agar lebih proporsional */
-  }
-
-  #task-category,
-  #filter-category {
-    flex: 0.5; /* Ukuran dropdown kategori lebih kecil dibanding input */
-  }
-
-  button {
-    flex: 0.5; /* Lebar tombol disesuaikan untuk tablet */
-  }
-}
-
-#task-category,
-#filter-category {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
 }

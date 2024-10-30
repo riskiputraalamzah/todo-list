@@ -1,20 +1,40 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("todo-form");
-  const todoInput = document.getElementById("new-task");
-  const taskCategory = document.getElementById("task-category");
-  const todoList = document.getElementById("todo-list");
-  const filterSelect = document.getElementById("filter-tasks");
-  const filterCategory = document.getElementById("filter-category");
+// script.js
+export default class ToDoApp {
+  constructor() {
+    this.form = document.getElementById("todo-form");
+    this.todoInput = document.getElementById("new-task");
+    this.taskCategory = document.getElementById("task-category");
+    this.todoList = document.getElementById("todo-list");
+    this.filterSelect = document.getElementById("filter-tasks");
+    this.filterCategory = document.getElementById("filter-category");
 
-  function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach((task) => {
-      addTaskToDOM(task.text, task.category, task.completed);
-    });
-    applyFilter(); // Terapkan filter saat memuat
+    this.form.addEventListener("submit", (e) => this.addTask(e));
+    this.filterSelect.addEventListener("change", () => this.applyFilter());
+    this.filterCategory.addEventListener("change", () => this.applyFilter());
+
+    this.loadTasks();
   }
 
-  function addTaskToDOM(taskText, category, completed = false) {
+  loadTasks() {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach((task) => {
+      this.addTaskToDOM(task.text, task.category, task.completed);
+    });
+    this.applyFilter(); // Terapkan filter saat memuat
+  }
+
+  addTask(e) {
+    e.preventDefault();
+    const taskText = this.todoInput.value.trim();
+    const category = this.taskCategory.value;
+    if (taskText === "") return;
+
+    this.addTaskToDOM(taskText, category);
+    this.todoInput.value = ""; // Kosongkan input setelah menambah tugas
+    this.updateLocalStorage(); // Perbarui localStorage
+  }
+
+  addTaskToDOM(taskText, category, completed = false) {
     const todoItem = document.createElement("li");
     todoItem.classList.add("todo-item");
     todoItem.setAttribute("data-category", category);
@@ -28,27 +48,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const completeCheckbox = document.createElement("input");
     completeCheckbox.type = "checkbox";
     completeCheckbox.checked = completed;
-    completeCheckbox.onclick = function () {
+    completeCheckbox.onclick = () => {
       taskSpan.classList.toggle("completed", completeCheckbox.checked);
-      updateLocalStorage();
-      applyFilter(); // Terapkan filter setelah status berubah
+      this.updateLocalStorage();
+      this.applyFilter();
     };
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "✖";
     removeButton.classList.add("remove-btn");
-    removeButton.onclick = function () {
-      todoList.removeChild(todoItem);
-      updateLocalStorage();
+    removeButton.onclick = () => {
+      this.todoList.removeChild(todoItem);
+      this.updateLocalStorage();
     };
 
     todoItem.appendChild(completeCheckbox);
     todoItem.appendChild(taskSpan);
     todoItem.appendChild(removeButton);
-    todoList.appendChild(todoItem);
+    this.todoList.appendChild(todoItem);
   }
 
-  function updateLocalStorage() {
+  updateLocalStorage() {
     const tasks = [];
     const todoItems = document.querySelectorAll(".todo-item");
     todoItems.forEach((item) => {
@@ -58,12 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
       tasks.push({ text: taskText, category: category, completed: completed });
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
-    applyFilter(); // Terapkan filter setiap kali data diperbarui
+    this.applyFilter();
   }
 
-  function applyFilter() {
-    const filterValue = filterSelect.value;
-    const filterCategoryValue = filterCategory.value;
+  applyFilter() {
+    const filterValue = this.filterSelect.value;
+    const filterCategoryValue = this.filterCategory.value;
     const todoItems = document.querySelectorAll(".todo-item");
 
     todoItems.forEach((item) => {
@@ -72,36 +92,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const taskCategory = item.getAttribute("data-category");
 
       // Filter berdasarkan status
-      let statusMatch =
+      const statusMatch =
         filterValue === "all" ||
         (filterValue === "completed" && isCompleted) ||
         (filterValue === "incomplete" && !isCompleted);
 
       // Filter berdasarkan kategori
-      let categoryMatch =
+      const categoryMatch =
         filterCategoryValue === "all" || filterCategoryValue === taskCategory;
 
-      if (statusMatch && categoryMatch) {
-        item.style.display = "flex"; // Tampilkan jika sesuai dengan kedua filter
-      } else {
-        item.style.display = "none"; // Sembunyikan jika tidak cocok
-      }
+      item.style.display = statusMatch && categoryMatch ? "flex" : "none";
     });
   }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const taskText = todoInput.value.trim();
-    const category = taskCategory.value;
-    if (taskText === "") return;
-    addTaskToDOM(taskText, category);
-    todoInput.value = ""; // Kosongkan input setelah menambah tugas
-    updateLocalStorage(); // Perbarui localStorage
-  });
-
-  loadTasks();
-
-  // Event listener untuk filter
-  filterSelect.addEventListener("change", applyFilter);
-  filterCategory.addEventListener("change", applyFilter);
-});
+}
