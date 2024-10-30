@@ -1,4 +1,4 @@
-class TodoApp {
+export default class TodoApp {
   constructor() {
     // Menangkap elemen form dan daftar to-do dari DOM
     this.todoForm = document.getElementById('todo-form');
