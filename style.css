@@ -1,52 +1,48 @@
+/* General styles */
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-  overflow: hidden; /* Menyembunyikan scrollbars */
-  display: flex; /* Menampilkan flexbox */
-  justify-content: center; /* Memusatkan konten secara horizontal */
-  align-items: center; /* Memusatkan konten secara vertikal */
+  margin: 0;
 }
 
-#background-video {
-  position: absolute; /* Memastikan video di belakang */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Memastikan video mengisi seluruh layar */
-  z-index: -1; /* Menempatkan video di belakang konten lainnya */
-}
-
+/* Container untuk seluruh elemen */
 .container {
-  background-color: rgba(255, 255, 255, 0.8); /* Transparansi agar konten terlihat di atas video */
+  background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 90%; /* Responsif */
-  max-width: 400px; /* Maksimal lebar */
+  width: 100%;
+  max-width: 400px;
 }
 
-
+/* Heading untuk judul aplikasi */
 h1 {
   text-align: center;
   color: #333;
 }
 
+/* Formulir untuk menambahkan tugas */
 #todo-form {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
+/* Input tugas baru */
 #new-task {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
+  font-size: 16px;
 }
 
+/* Tombol untuk menambahkan tugas */
 button {
   padding: 10px;
   background-color: #28a745;
@@ -54,63 +50,74 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 button:hover {
   background-color: #218838;
 }
 
+/* Daftar tugas */
 #todo-list {
   list-style-type: none;
   padding: 0;
 }
 
+/* Setiap item tugas */
 .todo-item {
   display: flex;
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ccc;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  position: relative;
+  font-size: 16px;
 }
 
-.task-text {
-  flex-grow: 1;
-}
-
-/* Jika task sudah completed */
-.todo-item.completed .task-text {
+/* Tugas yang selesai */
+.todo-item.completed {
   text-decoration: line-through;
   color: #888;
 }
 
+/* Checkbox untuk menandai tugas selesai */
+.todo-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Tombol untuk menghapus tugas */
 .remove-btn {
   background-color: #dc3545;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 .remove-btn:hover {
   background-color: #c82333;
 }
 
-/* Filter buttons */
+/* Tombol filter */
+.filters {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .filter-btn {
+  flex: 1;
   padding: 10px;
+  margin: 0 5px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 5px;
-  background-color: #f8f9fa; /* Default background */
-  color: #333; /* Default color */
+  background-color: #6c757d;
+  color: white;
 }
 
+.filter-btn:hover {
+  background-color: #5a6268;
+}
 .filter-btn.active {
-  background-color: #007bff; /* Background biru untuk tab aktif */
-  color: white; /* Warna teks putih untuk tab aktif */
+  background-color: #007bff;
 }

@@ -21,7 +21,7 @@ function addTask() {
 function createTaskElement(taskValue) {
   const li = document.createElement('li');
   li.classList.add('todo-item');
-  
+
   const taskText = document.createElement('span');
   taskText.textContent = taskValue;
   taskText.classList.add('task-text');
@@ -36,11 +36,20 @@ function createTaskElement(taskValue) {
     removeTaskFromLocalStorage(taskValue);
   });
 
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.addEventListener('change', function() {
+    li.classList.toggle('completed', this.checked);
+    updateTaskInLocalStorage(taskValue, this.checked);
+  });
+
   taskText.addEventListener('click', function() {
     li.classList.toggle('completed');
+    checkbox.checked = li.classList.contains('completed');
     updateTaskInLocalStorage(taskValue, li.classList.contains('completed'));
   });
 
+  li.appendChild(checkbox);
   li.appendChild(taskText);
   li.appendChild(removeBtn);
   return li;
@@ -102,13 +111,6 @@ filterButtons.forEach(button => {
     event.target.classList.add('active');
     filterTasks(filter);
   });
-});
-
-task.addEventListener('keyup', (event) => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    addTask();
-  }
 });
 
 form.addEventListener('submit', (event) => {
