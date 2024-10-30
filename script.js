@@ -1,30 +1,23 @@
+// script.js
+
 const task = document.getElementById('new-task');
 const form = document.getElementById('todo-form');
 const taskList = document.getElementById('todo-list');
 const filterButtons = document.querySelectorAll('.filter-btn');
 
-// Memuat tugas dari localStorage saat halaman dimuat
+// Load tasks from localStorage on page load
 document.addEventListener('DOMContentLoaded', loadTasks);
 
-// Fungsi untuk menambahkan task
 function addTask() {
   const taskValue = task.value.trim();
-
   if (taskValue !== "") {
     const li = createTaskElement(taskValue);
-    
-    // Tambahkan task baru ke dalam daftar (ul)
     taskList.appendChild(li);
-
-    // Simpan tugas ke localStorage
     saveTaskToLocalStorage(taskValue);
-
-    // Kosongkan input setelah task ditambahkan
     task.value = "";
   }
 }
 
-// Fungsi untuk membuat elemen tugas
 function createTaskElement(taskValue) {
   const li = document.createElement('li');
   li.classList.add('todo-item');
@@ -40,7 +33,7 @@ function createTaskElement(taskValue) {
   removeBtn.addEventListener('click', function(event) {
     event.stopPropagation();
     this.parentElement.remove();
-    removeTaskFromLocalStorage(taskValue); // Hapus dari localStorage
+    removeTaskFromLocalStorage(taskValue);
   });
 
   taskText.addEventListener('click', function() {
@@ -50,18 +43,15 @@ function createTaskElement(taskValue) {
 
   li.appendChild(taskText);
   li.appendChild(removeBtn);
-
   return li;
 }
 
-// Fungsi untuk menyimpan tugas ke localStorage
 function saveTaskToLocalStorage(taskValue) {
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   tasks.push({ text: taskValue, completed: false });
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-// Fungsi untuk memuat tugas dari localStorage
 function loadTasks() {
   const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   tasks.forEach(task => {
@@ -73,14 +63,12 @@ function loadTasks() {
   });
 }
 
-// Fungsi untuk menghapus tugas dari localStorage
 function removeTaskFromLocalStorage(taskValue) {
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   tasks = tasks.filter(task => task.text !== taskValue);
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-// Fungsi untuk memperbarui status tugas di localStorage
 function updateTaskInLocalStorage(taskValue, completed) {
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   const taskToUpdate = tasks.find(task => task.text === taskValue);
@@ -90,7 +78,6 @@ function updateTaskInLocalStorage(taskValue, completed) {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-// Fungsi untuk memfilter tugas
 function filterTasks(filter) {
   const tasks = taskList.querySelectorAll('.todo-item');
   tasks.forEach(task => {
@@ -108,24 +95,15 @@ function filterTasks(filter) {
   });
 }
 
-// Event listener untuk filter buttons// Event listener untuk filter buttons
 filterButtons.forEach(button => {
   button.addEventListener('click', (event) => {
     const filter = event.target.dataset.filter;
-
-    // Hapus kelas aktif dari semua tombol
     filterButtons.forEach(btn => btn.classList.remove('active'));
-
-    // Tambahkan kelas aktif ke tombol yang dipilih
     event.target.classList.add('active');
-
-    // Filter tasks sesuai dengan filter yang dipilih
     filterTasks(filter);
   });
 });
 
-
-// Event listener untuk input Enter dan submit form
 task.addEventListener('keyup', (event) => {
   if (event.key === 'Enter') {
     event.preventDefault();
@@ -137,3 +115,18 @@ form.addEventListener('submit', (event) => {
   event.preventDefault();
   addTask();
 });
+
+// Export functions and constants
+export {
+  task,
+  form,
+  taskList,
+  filterButtons,
+  addTask,
+  createTaskElement,
+  saveTaskToLocalStorage,
+  loadTasks,
+  removeTaskFromLocalStorage,
+  updateTaskInLocalStorage,
+  filterTasks
+};
