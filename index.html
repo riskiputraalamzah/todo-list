@@ -23,6 +23,28 @@
             <button class="filter-btn" data-filter="completed">Completed</button>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script type="module">
+      import {
+        task,
+        form,
+        taskList,
+        filterButtons,
+        addTask,
+        createTaskElement,
+        saveTaskToLocalStorage,
+        loadTasks,
+        removeTaskFromLocalStorage,
+        updateTaskInLocalStorage,
+        filterTasks
+      } from './script.js';
+
+      // Initialize the application
+      loadTasks();
+    </script>  
+
+  </body>
+
 </body>
+
 </html>
